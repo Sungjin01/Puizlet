@@ -1,0 +1,21 @@
+{% extends "base_polls.html" %}
+
+
+{% block content %}
+<h1>{{ wordbook.book_name }} 학습</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+{% for word in wordbook.word_set.all %}
+    <form action="{% url 'polls:check' wordbook.id word.eng_word cnt%}" method="post">
+        {% csrf_token %}
+        {{word.eng_word}} : <input type="text" id="kor_word" name="kor_word">
+    </form>
+    <input type="submit" value="채점">
+    <br>
+{% endfor %}
+<br>
+<input type="button" value="결과보기" onClick="location.href='/polls/result/{{cnt}}'">
+
+{% endblock %}

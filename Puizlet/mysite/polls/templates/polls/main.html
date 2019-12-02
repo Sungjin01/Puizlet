@@ -1,0 +1,41 @@
+{% extends "base_polls.html" %}
+{% block content %}
+{% if wordbook_list %}
+{% for w in wordbook_list %}
+    {% if forloop.last %}
+        <form action="{% url 'polls:makebooks' w.id %}" method="POST">
+            {% csrf_token %}
+            단어장 이름 : <input id="book_named" type="text" name="book_name" maxlength="30" required>
+            <input type="submit" value="추가">
+        </form>
+    {% endif %}
+{% endfor %}
+{% else %}
+    <form action="{% url 'polls:makebooks' 1 %}" method="POST">
+            {% csrf_token %}
+            단어장 이름 : <input id="book_named" type="text" name="book_name" maxlength="30" required>
+            <input type="submit" value="추가">
+        </form>
+{% endif %}
+
+<hr>
+
+{% if wordbook_list %}
+    <ul>
+        {% for wordbook in wordbook_list %}
+            <li>{{ wordbook.book_name }}
+            <input type="button" value="편집" onClick="location.href='/polls/{{wordbook.id}}'">
+            <input type="button" value="학습" onClick="location.href='/polls/study/{{wordbook.id}}/0'">
+            <input type="button" value="삭제" onClick="location.href='/polls/remove/{{wordbook.id}}'">
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+<p>No WordBooks are available</p>
+{% endif %}
+
+{% endblock %}
+
+
+
+

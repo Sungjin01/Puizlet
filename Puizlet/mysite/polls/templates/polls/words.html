@@ -1,0 +1,24 @@
+{% extends "base_polls.html" %}
+
+{% block content %}
+<h1>{{ wordbook.book_name }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'polls:words' wordbook.id %}" method="post">
+{% csrf_token %}
+{% for word in wordbook.word_set.all %}
+    {{word.eng_word}}  {{word.kor_word}}
+    <input type="button" value="삭제"  onClick="location.href='/polls/removeword/{{word.id}}'"/>
+    <br>
+    
+{% endfor %}
+</form>
+
+<form action="{% url 'polls:makewords' wordbook.id %}" method="POST">
+{% csrf_token %}
+단어 : <input id="eng_word" type="text" name="eng_word" maxlength="30" required>
+한글 뜻 : <input id="kor_word" type="text" name="kor_word" required><br>
+<input type="submit" value="추가">
+</form>
+{% endblock %}

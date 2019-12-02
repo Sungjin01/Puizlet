@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<hr>
+<ul>
+    {% for appname in app_list %}
+    {% with appname|add:":"|add:"main" as urlvar %}
+    <li><a href = "{% url urlvar %}">{{appname}}</a></li>
+    {% endwith %}   
+    {% endfor %}
+
+{% endblock  %}

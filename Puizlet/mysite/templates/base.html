@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+
+    <link rel = "stylesheet">
+    <title>Puizlet</title>
+</head>
+<body>
+    <div id = "sidebar">
+    {% block sidebar %}
+    <ul>
+        <li><a href = "/">Puizlet Home</a></li>
+        <li><a href = "/admin/">Admin</a></li>
+    </ul>
+    {% endblock  %}
+    </div>
+<h1>Puizlet : 암기가 즐거워 지는 시간</h1>
+
+    <div id = "content">
+        {% block content%}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
